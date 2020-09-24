@@ -6,7 +6,50 @@
 </head>
 <body>
 <canvas id="draw" width="800" height="800"></canvas>
+
 <script>
+  const canvas = document.querySelector('#draw')
+  const ctx = canvas.getContext('2d') // context is what we actually draw on 
+  // This will resize the canvas to whatever the user window size is // 
+  canvas.width = window.innerWidth
+  canvas.height = window.innerHeight 
+
+  ctx.strokeStyle = '#BADA55' // there must be an initial color set.
+  ctx.lineJoin = 'round' // when lines meet each other square or not? 
+  ctx.lineCap = 'round' //end of the drawn line squared off?
+  ctx.lineWidth = 100
+
+  let isDrawing = false
+  // creates and ending point for the drawn line // 
+  let lastX = 0
+  let lastY = 0
+
+  function draw (e) {
+    if(!isDrawing) return; // stop everything below this line from running when not moused down 
+    console.log(e)
+    
+    ctx.beginPath() 
+    ctx.moveTo(lastX, lastY) //beginning of the lane
+
+    ctx.lineTo(e.offsetX, e.offsetY) // where line goes to
+    ctx.stroke() // sets the line visible on the page
+    
+    // enables line to follow mouse by setting start point of the line point to where the mouse is.//
+    // In the tutorials Wes destructors this but it wasn't working when I did that.  
+    lastX = e.offsetX
+    lastY = e.offsetY
+  }
+  
+  // only runs draw() when the mouse is pressed down // 
+  canvas.addEventListener('mousemove', draw)
+  canvas.addEventListener('mousedown', (e) => {
+    isDrawing = true
+    lastX = e.offsetX
+    lastY = e.offsetY
+  })
+  canvas.addEventListener('mouseup', () => isDrawing = false)
+  canvas.addEventListener('mouseout', () => isDrawing = false)
+
 </script>
 
 <style>
