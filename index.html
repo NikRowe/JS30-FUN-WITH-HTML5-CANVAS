@@ -1,66 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>HTML5 Canvas</title>
 </head>
+
 <body>
-<canvas id="draw" width="800" height="800"></canvas>
+  <canvas id="draw" width="800" height="800"></canvas>
 
-<script>
-  const canvas = document.querySelector('#draw')
-  const ctx = canvas.getContext('2d') // context is what we actually draw on 
-  // This will resize the canvas to whatever the user window size is // 
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight 
+  <script>
+    const canvas = document.querySelector('#draw')
+    const ctx = canvas.getContext('2d') // context is what we actually draw on 
+    // This will resize the canvas to whatever the user window size is // 
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
 
-  ctx.strokeStyle = '#BADA55' // there must be an initial color set.
-  ctx.lineJoin = 'round' // when lines meet each other square or not? 
-  ctx.lineCap = 'round' //end of the drawn line squared off?
-  ctx.lineWidth = 100
+    ctx.strokeStyle = '#BADA55' // there must be an initial color set.
+    ctx.lineJoin = 'round' // when lines meet each other square or not? 
+    ctx.lineCap = 'round' //end of the drawn line squared off?
+    ctx.lineWidth = 100
 
-  let isDrawing = false
-  let hue = 0
-  // creates and ending point for the drawn line // 
-  let lastX = 0
-  let lastY = 0
+    let isDrawing = false
+    let hue = 0
+    let direction = true
+    // creates and ending point for the drawn line // 
+    let lastX = 0
+    let lastY = 0
 
-  function draw (e) {
-    if(!isDrawing) return; // stop everything below this line from running when not moused down 
-    console.log(e)
-    
-    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // sets stroke style from default 
+    function draw(e) {
+      if (!isDrawing) return; // stop everything below this line from running when not moused down 
+      console.log(e)
 
-    ctx.beginPath() 
-    ctx.moveTo(lastX, lastY) //beginning of the lane
+      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // sets stroke style from default 
 
-    ctx.lineTo(e.offsetX, e.offsetY) // where line goes to
-    ctx.stroke() // sets the line visible on the page
-    
-    // enables line to follow mouse by setting start point of the line point to where the mouse is.//
-    // In the tutorials Wes destructors this but it wasn't working when I did that.  
-    lastX = e.offsetX
-    lastY = e.offsetY
-    hue++ //increments the hue digit by 1 so the color changes at end of each line
-  }
-  
-  // only runs draw() when the mouse is pressed down // 
-  canvas.addEventListener('mousemove', draw)
-  canvas.addEventListener('mousedown', (e) => {
-    isDrawing = true
-    lastX = e.offsetX
-    lastY = e.offsetY
-  })
-  canvas.addEventListener('mouseup', () => isDrawing = false)
-  canvas.addEventListener('mouseout', () => isDrawing = false)
+      ctx.beginPath()
+      ctx.moveTo(lastX, lastY) //beginning of the lane
 
-</script>
+      ctx.lineTo(e.offsetX, e.offsetY) // where line goes to
+      ctx.stroke() // sets the line visible on the page
 
-<style>
-  html, body {
-    margin: 0;
-  }
-</style>
+      // enables line to follow mouse by setting start point of the line point to where the mouse is.//
+      // In the tutorials Wes destructors this but it wasn't working when I did that.  
+      lastX = e.offsetX
+      lastY = e.offsetY
+      //increments the hue digit by 1 so the color changes at end of each line, then resets when hits max hue value //
+      hue++
+      if (hue >= 360) {
+        hue = 0
+      }
+
+      // increments line size by 1 - reverses it when it gets to small or big
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+        direction = !direction // reverses direction
+      }
+      if (direction) {
+        ctx.lineWidth++
+      } else {
+        ctx.lineWidth--
+      }
+    }
+
+    // only runs draw() when the mouse is pressed down // 
+    canvas.addEventListener('mousemove', draw)
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true
+      lastX = e.offsetX
+      lastY = e.offsetY
+    })
+    canvas.addEventListener('mouseup', () => isDrawing = false)
+    canvas.addEventListener('mouseout', () => isDrawing = false)
+
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+  </style>
 
 </body>
+
 </html>
