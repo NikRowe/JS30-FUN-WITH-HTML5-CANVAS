@@ -20,6 +20,7 @@
   ctx.lineWidth = 100
 
   let isDrawing = false
+  let hue = 0
   // creates and ending point for the drawn line // 
   let lastX = 0
   let lastY = 0
@@ -28,6 +29,8 @@
     if(!isDrawing) return; // stop everything below this line from running when not moused down 
     console.log(e)
     
+    ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // sets stroke style from default 
+
     ctx.beginPath() 
     ctx.moveTo(lastX, lastY) //beginning of the lane
 
@@ -38,6 +41,7 @@
     // In the tutorials Wes destructors this but it wasn't working when I did that.  
     lastX = e.offsetX
     lastY = e.offsetY
+    hue++ //increments the hue digit by 1 so the color changes at end of each line
   }
   
   // only runs draw() when the mouse is pressed down // 
