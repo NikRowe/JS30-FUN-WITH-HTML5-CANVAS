@@ -1,0 +1,24 @@
+{
+  "name": "js30-fun-with-html5-canvas",
+  "version": "1.0.0",
+  "description": "Wes Bos JS30 08 Fun With HTML5 Canvas",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run lite",
+    "lite": "lite-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NikRowe/JS30-FUN-WITH-HTML5-CANVAS.git"
+  },
+  "author": "Nik Rowe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NikRowe/JS30-FUN-WITH-HTML5-CANVAS/issues"
+  },
+  "homepage": "https://github.com/NikRowe/JS30-FUN-WITH-HTML5-CANVAS#readme",
+  "devDependencies": {
+    "lite-server": "^2.5.4"
+  }
+}
