@@ -7,4 +7,4 @@ I knew nothing about creating a "paint" like app prior to this so all of the can
 
 For my bonus piece I chose to continue the app and give the random colors a toggle function and a custom color picker that will toggle the random colors off. 
 
-<a href="https://app.netlify.com/sites/nikrowedevjs30-fun-with-html5-canvas/overview">Demo<a>
+<a href="https://nikrowedevjs30-fun-with-html5-canvas.netlify.app/">Demo<a>
