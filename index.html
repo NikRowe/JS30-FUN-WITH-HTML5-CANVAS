@@ -7,9 +7,14 @@
 </head>
 
 <body>
+  <label for="color">Whats your favorite color? </label>
+  <input id="color" type="color" name="color" value="#ffc600">
+
   <canvas id="draw" width="800" height="800"></canvas>
 
   <script>
+    const colorInput = document.querySelector('#color') // grabs the color selector  
+
     const canvas = document.querySelector('#draw')
     const ctx = canvas.getContext('2d') // context is what we actually draw on 
     // This will resize the canvas to whatever the user window size is // 
@@ -24,15 +29,25 @@
     let isDrawing = false
     let hue = 0
     let direction = true
+    let custom = false
     // creates and ending point for the drawn line // 
     let lastX = 0
     let lastY = 0
 
+    // sets line color to selected color // 
+    function handleUpdate() {
+      ctx.strokeStyle = this.value
+      custom = true
+    }
+
     function draw(e) {
       if (!isDrawing) return; // stop everything below this line from running when not moused down 
-      console.log(e)
+      // console.log(e)
 
-      ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` // sets stroke style from default 
+      // sets line color to random as you line increases if a custom color isn't selected // 
+      if(!custom){
+        ctx.strokeStyle = `hsl(${hue}, 100%, 50%)` 
+      }
 
       ctx.beginPath()
       ctx.moveTo(lastX, lastY) //beginning of the lane
@@ -61,7 +76,9 @@
       }
     }
 
-    // only runs draw() when the mouse is pressed down // 
+    colorInput.addEventListener('change', handleUpdate) //listens for change in the color selector
+
+    // only runs draw() when the mouse is pressed down && set last line position to where the mouse is // 
     canvas.addEventListener('mousemove', draw)
     canvas.addEventListener('mousedown', (e) => {
       isDrawing = true
