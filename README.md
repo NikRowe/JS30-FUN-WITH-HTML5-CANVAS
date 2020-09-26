@@ -1,5 +1,5 @@
 # JS30 Fun With HTML5 Canvas
-Excorcise 08 in WesBos' JavaScript30 tutorials. 
+Exercise 08 in WesBos' JavaScript30 tutorials. 
 
 What a fun one! The way Wes breaks up the 30 days so far at least in the 1st week is fantastic. A bit of pur JS with cardio days and some creative days sprinkled in such as this canvas or the flex panels exorcise. 
 
